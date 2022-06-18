@@ -25,7 +25,7 @@ import {filterImageFromURL, deleteLocalFiles, authenticate} from './util/util';
   // @TODO1 IMPLEMENT A RESTFUL ENDPOINT
   // GET /filteredimage?image_url={{URL}}
   // endpoint to filter an image from a public url.
-  app.get("/filteredimage", authenticate, async (req: Request, res: Response) => {
+  app.get("/filteredimage", /* authenticate,*/async (req: Request, res: Response) => {
     try {
       // IT SHOULD
       //    1. validate the image_url query
@@ -40,7 +40,7 @@ import {filterImageFromURL, deleteLocalFiles, authenticate} from './util/util';
       //    2. call filterImageFromURL(image_url) to filter the image
       const imagePath: string = await filterImageFromURL(query);
       //    3. send the resulting file in the response
-      res.set("Content-type", "image/jpg");
+      res.set("Content-type", "image/*");
       res.status(200).sendFile(imagePath);
       //    4. deletes any files on the server on finish of the response
       res.on('finish', () => {
