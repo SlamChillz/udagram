@@ -43,9 +43,6 @@ venv/
 # Environment variables
 .env
 
-# deployment screen shot
-deployment_screenshots/
-
 /**/tmp/
 
 # restclient

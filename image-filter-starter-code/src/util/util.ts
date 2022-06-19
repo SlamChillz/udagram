@@ -3,8 +3,9 @@ import { NextFunction } from "connect";
 import fs from "fs";
 import Jimp = require("jimp");
 import * as jwt from 'jsonwebtoken';
-import { config } from 'dotenv';
-config();
+import axios from 'axios';
+// import { config } from 'dotenv';
+// config();
 // filterImageFromURL
 // helper function to download, filter, and save the filtered image locally
 // returns the absolute path to the local image
@@ -15,7 +16,12 @@ config();
 export async function filterImageFromURL(inputURL: string): Promise<string> {
   return new Promise(async (resolve, reject) => {
     try {
-      const photo = await Jimp.read(inputURL);
+      const response = await axios({
+        method: 'get',
+        url: inputURL,
+        responseType: 'arraybuffer'
+      })
+      const photo = await Jimp.read(response.data);
       const outpath =
         "/tmp/filtered." + Math.floor(Math.random() * 2000) + ".jpg";
       await photo
